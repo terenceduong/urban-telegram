@@ -78,6 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onMapClick(LatLng point) {
+        clearMarkers();
         final Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         markers.add(temp);
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
@@ -102,10 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                for (int i = 0; i < markers.size(); i++) {
-                    markers.get(i).remove();
-                }
-                markers.clear();
+
             }
         });
 
@@ -129,6 +127,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         i.putExtra("Longitude" , m.getPosition().longitude);
 
         startActivity(i);
+    }
+
+    public void clearMarkers() {
+        for (int i = 0; i < markers.size(); i++) {
+            markers.get(i).remove();
+        }
+        markers.clear();
     }
 
 
