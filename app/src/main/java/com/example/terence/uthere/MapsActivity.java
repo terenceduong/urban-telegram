@@ -19,10 +19,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.InfoWindowAdapter {
 
     private GoogleMap mMap;
-
+    private ArrayList<Marker> markers = new ArrayList<Marker>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +61,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng startPosition = new LatLng(-37.911067, 145.133091);
 
 
+        Marker temp;
+        temp = mMap.addMarker(new MarkerOptions().position(startPosition).title("Hello this is Monash University"));
+        markers.add(temp);
 
-        mMap.addMarker(new MarkerOptions().position(startPosition).title("Hello this is Monash University"));
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-37,146)).title("Memes"));
+        temp = mMap.addMarker(new MarkerOptions().position(new LatLng(-37,146)).title("Memes"));
+        markers.add(temp);
+
         mMap.moveCamera(CameraUpdateFactory.newLatLng(startPosition));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
@@ -64,12 +78,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onMapClick(LatLng point) {
+<<<<<<<<< Temporary merge branch 1
+        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
+        markers.add(temp);
+=========
         final Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
+>>>>>>>>> Temporary merge branch 2
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
 
         temp.showInfoWindow();
         Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
+        Button cancelButton = (Button) findViewById(R.id.btnCancel);
         checkInButton.setVisibility(View.VISIBLE);
+        cancelButton.setVisibility(View.VISIBLE);
         checkInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
@@ -79,11 +100,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+<<<<<<<<< Temporary merge branch 1
+
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                for (int i = 0; i < markers.size(); i++) {
+                    markers.get(i).remove();
+                }
+                markers.clear();
+=========
                 passActivity(temp);
+>>>>>>>>> Temporary merge branch 2
             }
         });
 
     }
+
 
     public View getInfoWindow(Marker m) {
         Marker a;
