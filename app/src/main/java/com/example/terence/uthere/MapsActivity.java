@@ -5,6 +5,7 @@ package com.example.terence.uthere;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,9 +58,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onMapClick(LatLng point) {
-        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Dropped pin"));
+        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
-        getInfoWindow(temp);
+        temp.showInfoWindow();
+        Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
+        checkInButton.setVisibility(View.VISIBLE);
+
+
     }
 
     public View getInfoWindow(Marker m) {
