@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -106,6 +107,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 clearMarkers();
                 checkInButton.setVisibility(View.INVISIBLE);
                 cancelButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        final Button deleteButton = (Button) findViewById(R.id.btnDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File dir = getFilesDir();
+                File file = new File(dir, "database.txt");
+                boolean deleted = file.delete();
+                System.out.println(deleted);
             }
         });
 

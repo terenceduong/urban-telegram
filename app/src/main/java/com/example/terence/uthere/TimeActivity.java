@@ -7,10 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Scanner;
 
 public class TimeActivity extends AppCompatActivity {
 
@@ -85,13 +94,61 @@ public class TimeActivity extends AppCompatActivity {
         i.putExtra("day", day);
         i.putExtra("dur", durationDouble);
 
-        String s = lat + " " + lng + " " + hour + " " + min + " " + year + " " + month + " " + day + " " + durationDouble;
+        String s = lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year + "\t" + month + "\t" + day + "\t" + durationDouble;
         Context context = getApplicationContext();
         CharSequence text = s;
         int d = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, s, d);
         toast.show();
+
+        String filename = "database.txt";
+        File file = new File(context.getFilesDir(), filename);
+        String string = "Hello world!";
+        FileOutputStream outputStream;
+        System.out.println(getFilesDir());
+        try {
+            outputStream = openFileOutput(filename, MODE_APPEND);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        InputStream in = null;
+        try {
+            in = openFileInput(filename);
+            Scanner input = new Scanner(in);
+
+            in.read();
+
+            StringBuilder txt = new StringBuilder();
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    txt.append(line);
+                    txt.append('\n');
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                //You'll need to add proper error handling here
+            }
+
+            //Find the view by its id
+            //TextView tv = (TextView)findViewById(R.id.text_view);
+
+            //Set the text
+            //tv.setText(text.toString());
+            System.out.println(txt.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //startActivity(i);
     }
