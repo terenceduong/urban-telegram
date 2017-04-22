@@ -49,4 +49,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(new LatLng(-37,146)).title("Memes"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(startPosition));
     }
+
+
 }
