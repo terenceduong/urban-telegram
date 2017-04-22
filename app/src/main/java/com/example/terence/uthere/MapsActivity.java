@@ -73,12 +73,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setOnMapClickListener(this);
 
+
+
     }
 
     public void onMapClick(LatLng point) {
         Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         markers.add(temp);
+
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
+
         temp.showInfoWindow();
         Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
         Button cancelButton = (Button) findViewById(R.id.btnCancel);
@@ -93,7 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-
+                passActivity(temp);
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +121,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         return null;
     }
+
+    public void passActivity(Marker m){
+        Intent i = new Intent(this , DateActivity.class);
+
+        i.putExtra("Latitude" , m.getPosition().latitude);
+        i.putExtra("Longitude" , m.getPosition().longitude);
+
+        startActivity(i);
+    }
+
 
 
 
