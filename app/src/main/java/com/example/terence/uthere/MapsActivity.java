@@ -3,13 +3,12 @@
 package com.example.terence.uthere;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -19,13 +18,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.InfoWindowAdapter {
 
     private GoogleMap mMap;
@@ -34,8 +26,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -64,48 +54,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(startPosition).title("Hello this is Monash University"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(-37,146)).title("Memes"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(startPosition));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
         mMap.setOnMapClickListener(this);
-
-        //Hello
 
     }
 
     public void onMapClick(LatLng point) {
-        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Dropped pin"));
+        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
-        getInfoWindow(temp);
+        temp.showInfoWindow();
+        Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
+        checkInButton.setVisibility(View.VISIBLE);
+        checkInButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Context context = getApplicationContext();
+                CharSequence text = "Change this to next activity!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
+
     }
 
     public View getInfoWindow(Marker m) {
+        Marker a;
         return null;
     }
 
     public View getInfoContents(Marker m) {
 
-        getLocation(m.getPosition().latitude, m.getPosition().longitude);
-
         return null;
     }
 
-    public void getLocation(double lat, double lng) {
-        Geocoder geocoder = new Geocoder(MapsActivity.this, Locale.getDefault());
 
-        try {
-            List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
-            Address obj = addresses.get(0);
-            String add = obj.getAddressLine(0);
-
-            Log.e("IGA", "Address" + add);
-
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-    }
 
     // hello
 }
