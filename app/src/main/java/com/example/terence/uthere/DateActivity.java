@@ -33,22 +33,28 @@ public class DateActivity extends AppCompatActivity {
                 month = datePicker.getMonth();
                 day = datePicker.getMonth();
 
-                Intent intent = getIntent();
 
-                double lat = intent.getDoubleExtra("Latitude", -37.911067);
-                double lng = intent.getDoubleExtra("Longitude", 145.133091);
-
-                Intent i = new Intent(this, TimeActivity.class);
-                i.putExtra("Year", year);
-                i.putExtra("Month", month);
-                i.putExtra("Day", day);
-
-                i.putExtra("Lat", lat);
-                i.putExtra("Lng", lng);
-
-                startActivity(i);
+                passActivity();
             }
         });
     }
 
+    public void passActivity() {
+
+        Intent intent = getIntent();
+
+        double lat = intent.getDoubleExtra("Latitude", -37.911067);
+        double lng = intent.getDoubleExtra("Longitude", 145.133091);
+
+        Intent i = new Intent(this, TimeActivity.class);
+
+        i.putExtra("Year", year);
+        i.putExtra("Month", month);
+        i.putExtra("Day", day);
+
+        i.putExtra("Lat", lat);
+        i.putExtra("Lng", lng);
+
+        startActivity(i);
+    }
 }
