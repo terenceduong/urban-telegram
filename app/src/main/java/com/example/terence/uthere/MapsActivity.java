@@ -51,6 +51,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.setOnMapClickListener(this);
 
+        //Hello
+
     }
 
 
