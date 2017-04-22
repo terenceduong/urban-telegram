@@ -2,10 +2,12 @@
 
 package com.example.terence.uthere;
 
+import android.content.Context;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -52,6 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(startPosition).title("Hello this is Monash University"));
         mMap.addMarker(new MarkerOptions().position(new LatLng(-37,146)).title("Memes"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(startPosition));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
 
         mMap.setOnMapClickListener(this);
 
@@ -63,7 +66,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         temp.showInfoWindow();
         Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
         checkInButton.setVisibility(View.VISIBLE);
+        checkInButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+                Context context = getApplicationContext();
+                CharSequence text = "Change this to next activity!";
+                int duration = Toast.LENGTH_SHORT;
 
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
+        });
 
     }
 
