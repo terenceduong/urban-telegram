@@ -1,6 +1,15 @@
+<<<<<<< Updated upstream
 <resources>
     <string name="app_name">Uthere</string>
     <string name="title_activity_maps">Map</string>
     <string name="check_in">Check in here?</string>
     <string name="cancel">Cancel</string>
 </resources>
+=======
+<resources>
+    <string name="app_name">Uthere</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="check_in">Check in here?</string>
+    <string name="cancel">Cancel</string>
+</resources>
+>>>>>>> Stashed changes
