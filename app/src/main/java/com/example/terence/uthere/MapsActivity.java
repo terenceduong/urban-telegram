@@ -96,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void passActivity(Marker m){
-        Intent i = new Intent(this , StatusActivity.class);
+        Intent i = new Intent(this , DateActivity.class);
 
         i.putExtra("Latitude" , m.getPosition().latitude);
         i.putExtra("Longitude" , m.getPosition().longitude);
