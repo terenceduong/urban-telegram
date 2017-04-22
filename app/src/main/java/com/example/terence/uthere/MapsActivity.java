@@ -84,8 +84,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
 
         temp.showInfoWindow();
-        Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
-        Button cancelButton = (Button) findViewById(R.id.btnCancel);
+        final Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
+        final Button cancelButton = (Button) findViewById(R.id.btnCancel);
         checkInButton.setVisibility(View.VISIBLE);
         cancelButton.setVisibility(View.VISIBLE);
         checkInButton.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +103,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                clearMarkers();
+                checkInButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.INVISIBLE);
             }
         });
 
