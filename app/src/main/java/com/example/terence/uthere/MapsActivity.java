@@ -19,7 +19,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -47,11 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File dir = getFilesDir();
-                File file = new File(dir, "database.txt");
-                boolean deleted = file.delete();
-                Toast toast = Toast.makeText(getApplicationContext(),deleted+"",Toast.LENGTH_SHORT);
-                toast.show();
+                resetFile();
             }
         });
     }
@@ -102,12 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         checkInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Perform action on click
-                Context context = getApplicationContext();
-                CharSequence text = "Change this to next activity!";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                sampleToast();
                 passActivity(temp);
 
             }
@@ -151,7 +146,80 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         markers.clear();
     }
 
+    public void sampleToast() {
+        Context context = getApplicationContext();
+        CharSequence text = "Change this to next activity!";
+        int duration = Toast.LENGTH_SHORT;
 
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    public void resetFile() {
+        String filename = "database.txt";
+        File dir = getFilesDir();
+        File file = new File(dir, filename);
+        boolean deleted = file.delete();
+        Toast toast = Toast.makeText(getApplicationContext(),deleted+"",Toast.LENGTH_SHORT);
+        toast.show();
+
+//        lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year + "\t" + month + "\t" + day + "\t" + durationDouble;
+        String string = "Bob    -37.911478  145.133083  15   0   2017    04  23  2\n" +
+                "Jane\t-37.9110378\t145.1330417\t17\t0\t2017\t04\t23\t2\n" +
+                "Trent\t-37.9110378\t145.1330417\t16\t0\t2017\t04\t23\t2\n" +
+                "Greg\t-37.9110378\t145.1330417\t15\t0\t2017\t04\t23\t2\n" +
+                "John\t-37.9110378\t145.1330417\t22\t0\t2017\t04\t23\t8\n" +
+                "Terence\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
+                "Phillip\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
+                "Sanya\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
+                "John\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
+                "Sarah\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\n" +
+                "Susie\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\n" +
+                "Steph\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\n";
+        FileOutputStream outputStream;
+        System.out.println(getFilesDir());
+        try {
+            outputStream = openFileOutput(filename, MODE_PRIVATE);
+            outputStream.write(string.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        InputStream in = null;
+        try {
+            in = openFileInput(filename);
+            Scanner input = new Scanner(in);
+
+            in.read();
+
+            StringBuilder txt = new StringBuilder();
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    txt.append(line);
+                    txt.append('\n');
+                }
+                br.close();
+            } catch (IOException e) {
+            //You'll need to add proper error handling here
+            }
+
+        //Find the view by its id
+        //TextView tv = (TextView)findViewById(R.id.text_view);
+
+        //Set the text
+        //tv.setText(text.toString());
+            System.out.println(txt.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     // hello
