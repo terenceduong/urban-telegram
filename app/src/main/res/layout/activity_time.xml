@@ -51,18 +51,20 @@
         android:layout_alignParentTop="true"
         android:textSize="38dp"/>
 
-    <TextView
+    <EditText
         android:id="@+id/durationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        tools:layout_editor_absoluteX="161dp"
-        tools:layout_editor_absoluteY="474dp"
         android:layout_alignTop="@+id/durationLabel"
-        android:layout_toEndOf="@+id/TimeBack"
         android:layout_marginStart="53dp"
-        android:textSize="38dp"/>
+        android:layout_toEndOf="@+id/TimeBack"
+        android:ems="10"
+        android:includeFontPadding="false"
+        android:inputType="numberDecimal"
+        android:text="1"
+        android:textSize="38dp"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="474dp" />
 
     <TextView
         android:id="@+id/durationLabel"

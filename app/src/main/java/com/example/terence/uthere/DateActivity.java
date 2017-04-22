@@ -31,7 +31,7 @@ public class DateActivity extends AppCompatActivity {
                 //action on click
                 year = datePicker.getYear();
                 month = datePicker.getMonth();
-                day = datePicker.getMonth();
+                day = datePicker.getDayOfMonth();
 
 
                 passActivity();
@@ -43,17 +43,17 @@ public class DateActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        double lat = intent.getDoubleExtra("Latitude", -37.911067);
-        double lng = intent.getDoubleExtra("Longitude", 145.133091);
+        double lat = intent.getDoubleExtra("lat", -37.911067);
+        double lng = intent.getDoubleExtra("lng", 145.133091);
 
         Intent i = new Intent(this, TimeActivity.class);
 
-        i.putExtra("Year", year);
-        i.putExtra("Month", month);
-        i.putExtra("Day", day);
+        i.putExtra("year", year);
+        i.putExtra("month", month);
+        i.putExtra("day", day);
 
-        i.putExtra("Lat", lat);
-        i.putExtra("Lng", lng);
+        i.putExtra("lat", lat);
+        i.putExtra("lng", lng);
 
         startActivity(i);
     }
