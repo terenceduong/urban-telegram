@@ -78,9 +78,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onMapClick(LatLng point) {
+<<<<<<<<< Temporary merge branch 1
         Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         markers.add(temp);
-
+=========
+        final Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
+>>>>>>>>> Temporary merge branch 2
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
 
         temp.showInfoWindow();
@@ -97,7 +100,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
-                passActivity(temp);
+<<<<<<<<< Temporary merge branch 1
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -106,6 +110,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     markers.get(i).remove();
                 }
                 markers.clear();
+=========
+                passActivity(temp);
+>>>>>>>>> Temporary merge branch 2
             }
         });
 
