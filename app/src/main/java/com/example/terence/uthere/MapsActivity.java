@@ -79,14 +79,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onMapClick(LatLng point) {
-        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
+        clearMarkers();
+        final Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         markers.add(temp);
-
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
 
         temp.showInfoWindow();
-        Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
-        Button cancelButton = (Button) findViewById(R.id.btnCancel);
+        final Button checkInButton = (Button) findViewById(R.id.btnCheckIn);
+        final Button cancelButton = (Button) findViewById(R.id.btnCancel);
         checkInButton.setVisibility(View.VISIBLE);
         cancelButton.setVisibility(View.VISIBLE);
         checkInButton.setOnClickListener(new View.OnClickListener() {
@@ -99,14 +99,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
                 passActivity(temp);
+
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                for (int i = 0; i < markers.size(); i++) {
-                    markers.get(i).remove();
-                }
-                markers.clear();
+                clearMarkers();
+                checkInButton.setVisibility(View.INVISIBLE);
+                cancelButton.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -130,6 +130,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         i.putExtra("Longitude" , m.getPosition().longitude);
 
         startActivity(i);
+    }
+
+    public void clearMarkers() {
+        for (int i = 0; i < markers.size(); i++) {
+            markers.get(i).remove();
+        }
+        markers.clear();
     }
 
 
