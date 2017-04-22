@@ -3,6 +3,7 @@
 package com.example.terence.uthere;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -63,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void onMapClick(LatLng point) {
-        Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
+        final Marker temp = mMap.addMarker(new MarkerOptions().position(point).title("Nice memes"));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(point), 750, null);
 
         temp.showInfoWindow();
@@ -78,6 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                passActivity(temp);
             }
         });
 
@@ -91,6 +93,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public View getInfoContents(Marker m) {
 
         return null;
+    }
+
+    public void passActivity(Marker m){
+        Intent i = new Intent(this , StatusActivity.class);
+
+        i.putExtra("Latitude" , m.getPosition().latitude);
+        i.putExtra("Longitude" , m.getPosition().longitude);
+
+        startActivity(i);
     }
 
 
