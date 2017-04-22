@@ -34,12 +34,21 @@ public class DateActivity extends AppCompatActivity {
                 day = datePicker.getDayOfMonth();
 
 
-                passActivity();
+                nextActivity();
+            }
+        });
+
+        Button backButton = (Button) findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backActivity();
             }
         });
     }
 
-    public void passActivity() {
+    public void nextActivity() {
 
         Intent intent = getIntent();
 
@@ -55,6 +64,11 @@ public class DateActivity extends AppCompatActivity {
         i.putExtra("lat", lat);
         i.putExtra("lng", lng);
 
+        startActivity(i);
+    }
+
+    public void backActivity() {
+        Intent i = new Intent(this, MapsActivity.class);
         startActivity(i);
     }
 }

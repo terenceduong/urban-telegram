@@ -42,6 +42,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        final Button deleteButton = (Button) findViewById(R.id.btnDelete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File dir = getFilesDir();
+                File file = new File(dir, "database.txt");
+                boolean deleted = file.delete();
+                Toast toast = Toast.makeText(getApplicationContext(),deleted+"",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
 
@@ -63,11 +75,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         Marker temp;
-        temp = mMap.addMarker(new MarkerOptions().position(startPosition).title("Hello this is Monash University"));
+        temp = mMap.addMarker(new MarkerOptions().position(startPosition).title("Click to drop a pin!"));
         markers.add(temp);
-
-        temp = mMap.addMarker(new MarkerOptions().position(new LatLng(-37,146)).title("Memes"));
-        markers.add(temp);
+        temp.showInfoWindow();
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(startPosition));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17));
@@ -110,16 +120,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        final Button deleteButton = (Button) findViewById(R.id.btnDelete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File dir = getFilesDir();
-                File file = new File(dir, "database.txt");
-                boolean deleted = file.delete();
-                System.out.println(deleted);
-            }
-        });
+
 
     }
 
