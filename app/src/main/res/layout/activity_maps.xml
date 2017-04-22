@@ -25,7 +25,8 @@
     android:layout_margin="5dp"
     android:text="@string/check_in"
     android:textColor="#ffffff"
-    android:visibility="invisible"/>
+    android:visibility="invisible"
+    />
 
     <Button
         android:id="@+id/btnCancel"

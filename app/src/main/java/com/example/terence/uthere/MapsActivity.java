@@ -3,6 +3,7 @@
 package com.example.terence.uthere;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.Scanner;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.InfoWindowAdapter {
 
@@ -75,10 +85,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+
             }
         });
 
     }
+
 
     public View getInfoWindow(Marker m) {
         Marker a;
