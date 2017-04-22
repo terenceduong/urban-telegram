@@ -16,7 +16,7 @@ public class DateActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_date_time);
+        setContentView(R.layout.activity_date);
 
         final DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker);
         Date date = new Date();
