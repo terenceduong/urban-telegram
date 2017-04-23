@@ -54,6 +54,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 resetFile();
             }
         });
+
+        resetFile();
+
     }
 
 
@@ -159,12 +162,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String filename = "database.txt";
         File dir = getFilesDir();
         File file = new File(dir, filename);
-        boolean deleted = file.delete();
-        Toast toast = Toast.makeText(getApplicationContext(),deleted+"",Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(getApplicationContext(),"File reset",Toast.LENGTH_SHORT);
         toast.show();
 
 //        lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year + "\t" + month + "\t" + day + "\t" + durationDouble;
-        String string = "Bob    -37.911478  145.133083  15   0   2017    04  23  2\n" +
+        String string = "Bob\t-37.911478\t145.133083\t15\t0\t2017\t04\t23\t2\tProcrastinating\n" +
                 "Jane\t-37.9110378\t145.1330417\t17\t0\t2017\t04\t23\t2\tSunbaking\n" +
                 "Trent\t-37.9110378\t145.1330417\t16\t0\t2017\t04\t23\t2\tFooty\n" +
                 "Greg\t-37.9110378\t145.1330417\t15\t0\t2017\t04\t23\t2\tStudying\n" +
@@ -214,6 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // checks for people nearby
     public void checkNearby(LatLng point) {
+        double searchDistance = 0.0005;
         try {
             String filename = "database.txt";
             File dir = getFilesDir();
@@ -226,17 +229,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             try {
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 String line;
-
+                String[] userDetails = new String[10];
+                ArrayList<ArrayList<String>> users = new ArrayList<ArrayList<String>>();
 
                 while ((line = br.readLine()) != null) {
-                    txt.append(line);
-                    txt.append('\n');
+                    userDetails = line.split("\t");
+                    ArrayList<String> currentUser = new ArrayList<String>();
+
+                    // put details of current user into an array list
+                    for (int i = 0; i < userDetails.length; i++) {
+                        currentUser.add(userDetails[i]);
+                        System.out.println(i + " " + userDetails[i]);
+                    }
+
+
+
+                    double myLat = point.latitude;
+                    double myLng = point.longitude;
+
+
+                    double theirLat = Double.parseDouble(currentUser.get(1));
+                    double theirLng = Double.parseDouble(currentUser.get(2));
+                    System.out.println(theirLat + " " + theirLng);
+
+                    double distance = Math.sqrt(Math.pow((myLat-theirLat),2) + Math.pow((myLng-theirLng),2));
+                    System.out.println("Distance: " + distance);
+
+                    if (distance < searchDistance) {
+                        // put user into list of users if they are close
+                        users.add(currentUser);
+                    }
+
+                    //txt.append(line);
                 }
                 br.close();
             } catch (IOException e) {
                 //You'll need to add proper error handling here
             }
-            System.out.println(txt.toString());
+            //System.out.println(txt.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
