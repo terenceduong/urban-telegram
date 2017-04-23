@@ -139,12 +139,6 @@ public class TimeActivity extends AppCompatActivity {
             catch (IOException e) {
                 //You'll need to add proper error handling here
             }
-
-            //Find the view by its id
-            //TextView tv = (TextView)findViewById(R.id.text_view);
-
-            //Set the text
-            //tv.setText(text.toString());
             System.out.println(txt.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
