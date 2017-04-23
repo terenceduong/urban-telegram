@@ -260,14 +260,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     if (distance < searchDistance) {
                         // put user into list of users if they are close
                         users.add(currentUser);
-                        s.append(currentUser.get(0) + ", "); // get user's name
+                        s.append(currentUser.get(0) + ","); // get user's name
                     }
 
 
 
 
                 }
-                markers.get(0).setTitle(s.toString());
+                markers.get(0).setTitle(users.size() + " people nearby");
+                markers.get(0).setSnippet(s.toString());
                 markers.get(0).showInfoWindow();
                 br.close();
             } catch (IOException e) {
