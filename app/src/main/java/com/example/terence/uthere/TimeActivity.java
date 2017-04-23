@@ -84,7 +84,7 @@ public class TimeActivity extends AppCompatActivity {
 
         //duration.getText();
 
-        Intent i = new Intent(this, MapsActivity.class);
+        Intent i = new Intent(this, NameActivity.class);
         i.putExtra("lat", lat);
         i.putExtra("lng", lng);
         i.putExtra("hour", hour);
@@ -150,6 +150,6 @@ public class TimeActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //startActivity(i);
+        startActivity(i);
     }
 }

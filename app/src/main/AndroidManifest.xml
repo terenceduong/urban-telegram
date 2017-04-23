@@ -40,7 +40,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".DateActivity" />
-        <activity android:name=".TimeActivity"></activity>
+        <activity android:name=".TimeActivity" />
+        <activity android:name=".NameActivity"></activity>
     </application>
 
 </manifest>
