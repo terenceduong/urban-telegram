@@ -94,7 +94,10 @@ public class TimeActivity extends AppCompatActivity {
         i.putExtra("day", day);
         i.putExtra("dur", durationDouble);
 
-        String s = lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year + "\t" + month + "\t" + day + "\t" + durationDouble;
+        String name = "TEST";
+        String status = "FUNNNNNN";
+        String s = name + "\t" + lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year
+                + "\t" + month + "\t" + day + "\t" + durationDouble + "\t" + status + "\n";
         Context context = getApplicationContext();
         CharSequence text = s;
         int d = Toast.LENGTH_SHORT;
@@ -104,12 +107,11 @@ public class TimeActivity extends AppCompatActivity {
 
         String filename = "database.txt";
         File file = new File(context.getFilesDir(), filename);
-        String string = "Hello world!";
         FileOutputStream outputStream;
         System.out.println(getFilesDir());
         try {
             outputStream = openFileOutput(filename, MODE_APPEND);
-            outputStream.write(string.getBytes());
+            outputStream.write(s.getBytes());
             outputStream.close();
         } catch (Exception e) {
             e.printStackTrace();

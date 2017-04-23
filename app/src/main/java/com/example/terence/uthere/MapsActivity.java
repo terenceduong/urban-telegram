@@ -115,7 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
+        checkNearby(point);
 
     }
 
@@ -165,17 +165,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //        lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year + "\t" + month + "\t" + day + "\t" + durationDouble;
         String string = "Bob    -37.911478  145.133083  15   0   2017    04  23  2\n" +
-                "Jane\t-37.9110378\t145.1330417\t17\t0\t2017\t04\t23\t2\n" +
-                "Trent\t-37.9110378\t145.1330417\t16\t0\t2017\t04\t23\t2\n" +
-                "Greg\t-37.9110378\t145.1330417\t15\t0\t2017\t04\t23\t2\n" +
-                "John\t-37.9110378\t145.1330417\t22\t0\t2017\t04\t23\t8\n" +
-                "Terence\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
-                "Phillip\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
-                "Sanya\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
-                "John\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\n" +
-                "Sarah\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\n" +
-                "Susie\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\n" +
-                "Steph\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\n";
+                "Jane\t-37.9110378\t145.1330417\t17\t0\t2017\t04\t23\t2\tSunbaking\n" +
+                "Trent\t-37.9110378\t145.1330417\t16\t0\t2017\t04\t23\t2\tFooty\n" +
+                "Greg\t-37.9110378\t145.1330417\t15\t0\t2017\t04\t23\t2\tStudying\n" +
+                "John\t-37.9110378\t145.1330417\t22\t0\t2017\t04\t23\t8\tSleeping\n" +
+                "Terence\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\tHackathon\n" +
+                "Phillip\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\tHackathon\n" +
+                "Sanya\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\tHackathon\n" +
+                "John\t-37.909555\t145.133820\t9\t0\t2017\t04\t22\t30\tHackathon\n" +
+                "Sarah\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\tPartying\n" +
+                "Susie\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\tPartying\n" +
+                "Steph\t-37.911074\t145.132848\t13\t0\t2017\t04\t23\t3\tPartying\n";
         FileOutputStream outputStream;
         System.out.println(getFilesDir());
         try {
@@ -190,9 +190,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         try {
             in = openFileInput(filename);
             Scanner input = new Scanner(in);
-
-            in.read();
-
             StringBuilder txt = new StringBuilder();
 
             try {
@@ -207,12 +204,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             } catch (IOException e) {
             //You'll need to add proper error handling here
             }
+            System.out.println(txt.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-        //Find the view by its id
-        //TextView tv = (TextView)findViewById(R.id.text_view);
+    // checks for people nearby
+    public void checkNearby(LatLng point) {
+        try {
+            String filename = "database.txt";
+            File dir = getFilesDir();
+            File file = new File(dir, filename);
+            InputStream in = null;
+            in = openFileInput(filename);
+            Scanner input = new Scanner(in);
+            StringBuilder txt = new StringBuilder();
 
-        //Set the text
-        //tv.setText(text.toString());
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+
+
+                while ((line = br.readLine()) != null) {
+                    txt.append(line);
+                    txt.append('\n');
+                }
+                br.close();
+            } catch (IOException e) {
+                //You'll need to add proper error handling here
+            }
             System.out.println(txt.toString());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
