@@ -1,5 +1,6 @@
 package com.example.terence.uthere;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Scanner;
 
 public class NameActivity extends AppCompatActivity {
 
@@ -77,11 +87,53 @@ public class NameActivity extends AppCompatActivity {
         EditText status = (EditText) findViewById(R.id.StatusInput);
         String statusInput = String.valueOf(status.getText());
 
-        //Store information to file
+
+        String s = nameInput + "\t" + lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year
+                + "\t" + month + "\t" + day + "\t" + dur + "\t" + statusInput + "\n";
+        Context context = getApplicationContext();
 
         int d = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), lat + " " + lng + " " + year + " " + month + " " + day + " " + hour
-        + " " + min + " " + dur + " " + nameInput + " " + statusInput, d);
+        Toast toast = Toast.makeText(context, "Checked in!", d);
         toast.show();
+
+        //Store information to file
+        String filename = "database.txt";
+        File file = new File(getFilesDir(), filename);
+        FileOutputStream outputStream;
+        try {
+            outputStream = openFileOutput(filename, MODE_APPEND);
+            outputStream.write(s.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        InputStream in = null;
+        try {
+            in = openFileInput(filename);
+            Scanner input = new Scanner(in);
+
+            StringBuilder txt = new StringBuilder();
+
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = br.readLine()) != null) {
+                    txt.append(line);
+                    txt.append('\n');
+                }
+                br.close();
+            }
+            catch (IOException e) {
+                //You'll need to add proper error handling here
+            }
+            System.out.println(txt.toString());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Intent i = new Intent(this, MapsActivity.class);
+        startActivity(i);
     }
 }

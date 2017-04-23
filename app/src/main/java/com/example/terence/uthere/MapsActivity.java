@@ -55,7 +55,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        resetFile();
 
     }
 
@@ -268,7 +267,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
                 markers.get(0).setTitle(users.size() + " people nearby");
-                markers.get(0).setSnippet(s.toString());
+                if (users.size() == 0) {
+                    markers.get(0).setSnippet(":(");
+                } else {
+                    markers.get(0).setSnippet(s.toString());
+                }
                 markers.get(0).showInfoWindow();
                 br.close();
             } catch (IOException e) {

@@ -15,8 +15,8 @@
         android:layout_marginTop="114dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text=""
-        android:textSize="38dp"/>
+        android:text="Benben"
+        android:textSize="38dp" />
 
     <TextView
         android:id="@+id/NameLabel"
@@ -42,12 +42,13 @@
         android:id="@+id/StatusInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/NameInput"
+        android:layout_below="@+id/StatusLabel"
         android:layout_marginTop="14dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="38dp"
-        android:layout_below="@+id/StatusLabel"
-        android:layout_alignStart="@+id/NameInput" />
+        android:text="Chillin'"
+        android:textSize="38dp" />
 
     <Button
         android:id="@+id/NextButton"

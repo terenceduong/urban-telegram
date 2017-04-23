@@ -94,57 +94,6 @@ public class TimeActivity extends AppCompatActivity {
         i.putExtra("day", day);
         i.putExtra("dur", durationDouble);
 
-        String name = "TEST";
-        String status = "FUNNNNNN";
-        String s = name + "\t" + lat + "\t" + lng + "\t" + hour + "\t" + min + "\t" + year
-                + "\t" + month + "\t" + day + "\t" + durationDouble + "\t" + status + "\n";
-        Context context = getApplicationContext();
-        CharSequence text = s;
-        int d = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, s, d);
-        toast.show();
-
-        String filename = "database.txt";
-        File file = new File(context.getFilesDir(), filename);
-        FileOutputStream outputStream;
-        System.out.println(getFilesDir());
-        try {
-            outputStream = openFileOutput(filename, MODE_APPEND);
-            outputStream.write(s.getBytes());
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        InputStream in = null;
-        try {
-            in = openFileInput(filename);
-            Scanner input = new Scanner(in);
-
-            in.read();
-
-            StringBuilder txt = new StringBuilder();
-
-            try {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    txt.append(line);
-                    txt.append('\n');
-                }
-                br.close();
-            }
-            catch (IOException e) {
-                //You'll need to add proper error handling here
-            }
-            System.out.println(txt.toString());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         startActivity(i);
     }
